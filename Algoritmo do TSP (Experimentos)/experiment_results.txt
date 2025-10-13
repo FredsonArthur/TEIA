@@ -1,0 +1,30 @@
+TSP Genetic Algorithm - Parameter Analysis Results
+==================================================
+
+Experiment 1: Population Size
+------------------------------
+pop_20: Fitness Mean=96.00, Std=0.00, Time Mean=0.0354s
+pop_50: Fitness Mean=96.00, Std=0.00, Time Mean=0.0856s
+pop_100: Fitness Mean=96.00, Std=0.00, Time Mean=0.1692s
+
+Experiment 2: Mutation Rate
+------------------------------
+mut_1%: Fitness Mean=96.00, Std=0.00, Time Mean=0.0829s
+mut_5%: Fitness Mean=96.00, Std=0.00, Time Mean=0.0829s
+mut_10%: Fitness Mean=96.00, Std=0.00, Time Mean=0.0841s
+mut_20%: Fitness Mean=96.00, Std=0.00, Time Mean=0.0871s
+
+Experiment 3: Tournament Size
+------------------------------
+tour_2: Fitness Mean=96.00, Std=0.00, Time Mean=0.0797s
+tour_3: Fitness Mean=96.00, Std=0.00, Time Mean=0.0820s
+tour_5: Fitness Mean=96.00, Std=0.00, Time Mean=0.0925s
+tour_7: Fitness Mean=96.00, Std=0.00, Time Mean=0.0958s
+
+Experiment 4: Elitism
+------------------------------
+elit_0%: Fitness Mean=96.00, Std=0.00, Time Mean=0.0829s
+elit_1%: Fitness Mean=96.00, Std=0.00, Time Mean=0.0823s
+elit_5%: Fitness Mean=96.00, Std=0.00, Time Mean=0.0839s
+elit_10%: Fitness Mean=96.00, Std=0.00, Time Mean=0.0805s
+
