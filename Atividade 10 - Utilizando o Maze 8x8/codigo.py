@@ -57,12 +57,14 @@ def train_agent(algorithm):
     env = gym.make("FrozenLake-v1", desc=mapa_8x8, is_slippery=False, render_mode=None)
     qtable = np.zeros((env.observation_space.n, env.action_space.n))
     rewards = []
-    epsilon = MAX_EPSILON
     
     for episode in range(TOTAL_EPISODES):
         state, info = env.reset()
         done = False
         total_rewards = 0
+        
+        # Atualiza Epsilon no início do episódio (mais eficiente)
+        epsilon = MIN_EPSILON + (MAX_EPSILON - MIN_EPSILON) * np.exp(-DECAY_RATE * episode)
         
         # SARSA: Precisa pré-selecionar a primeira ação (a)
         if algorithm == 'SARSA':
@@ -82,10 +84,6 @@ def train_agent(algorithm):
             if reward == 0 and not done:
                 reward = -0.01
             
-            # Seleciona a PRÓXIMA ação (a') para a próxima iteração
-            next_epsilon = MIN_EPSILON + (MAX_EPSILON - MIN_EPSILON) * np.exp(-DECAY_RATE * episode)
-            next_action = select_action(qtable, new_state, next_epsilon, env.action_space)
-
             # --- ATUALIZAÇÃO DA Q-TABLE ---
             if algorithm == 'Q-Learning':
                 # Off-policy: Usa o máximo (max Q(s', a'))
@@ -95,21 +93,23 @@ def train_agent(algorithm):
                 )
             
             elif algorithm == 'SARSA':
+                # Seleciona a PRÓXIMA ação (a') para a próxima iteração
+                next_action = select_action(qtable, new_state, epsilon, env.action_space)
+                
                 # On-policy: Usa a próxima ação real (Q(s', a'))
                 qtable[state, action] = qtable[state, action] + LEARNING_RATE * (
                     reward + GAMMA * qtable[new_state, next_action] - qtable[state, action]
                 )
+                # Atualiza a ação corrente para a próxima iteração
+                action = next_action
 
-            # Transição de estado e ação
+            # Transição de estado
             state = new_state
-            action = next_action 
             total_rewards += reward
             
             if done:
                 break
                 
-        # Atualiza Epsilon
-        epsilon = next_epsilon
         rewards.append(total_rewards)
 
     env.close()
